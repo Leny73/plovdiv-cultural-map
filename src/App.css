@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -30,3 +31,20 @@
     transform: rotate(360deg);
   }
 }
+ .main{
+  flex-basis: 40%;
+  display: flex;
+  flex-direction: column;
+  
+ }
+ .map{
+  flex-grow: 1;
+  height: 100vh;
+  top: 0;
+  position: sticky;
+ }
+ .sites{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+ }
