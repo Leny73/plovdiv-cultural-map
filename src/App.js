@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import data from './data.js';
 import Site from './site.js';
 import GoogleMapReact from 'google-map-react';
 import Marker from './marker.js';
+import site from './site.js';
 
 let center = {
   lat:42.151236,
   lng:24.752182
  }
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -20,7 +21,22 @@ class App extends Component {
         search: ''
     }
  }
- 
+
+ handleclick = ()=>{
+  this.props.handleClick(this.props.site)
+};
+
+selectSite = (site)=>{
+  this.setState({
+      selectedSite:site
+  })
+  if (this.state.selectedSite){
+    center={
+        lat: this.state.selectedSite.lat,
+        lng: this.state.selectedSite.lng
+    }
+  }
+};
  
  componentDidMount(){
     this.setState({
@@ -28,6 +44,8 @@ class App extends Component {
         allSitess: data
     })
  }
+ 
+
 
  
   render() {
@@ -41,6 +59,7 @@ class App extends Component {
               return <Site
                 key = {site.name}
                 site = {site}
+                handleClick={this.selectSite}
                 ></Site>
             })}
           </div> 
@@ -50,12 +69,13 @@ class App extends Component {
           center={center}
           zoom={14}
         >
-          {this.state.sites.map((stadium) => {
+          {this.state.sites.map((site) => {
             return <Marker
-              key={stadium.name}
-              lat={stadium.lat}
-              lng={stadium.lng}
-              text={stadium.capacity}
+              key={site.name}
+              lat={site.lat}
+              lng={site.lng}
+              text={site.capacity}
+              selected={site === this.state.selectedSite}
            ></Marker>
           })}
         </GoogleMapReact>

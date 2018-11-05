@@ -1,6 +1,7 @@
 import React from 'react'
 import './site.css'
 
+
 class Site extends React.Component{
    render(){
        const title= this.props.site.name ;
@@ -8,8 +9,12 @@ class Site extends React.Component{
        const style={
            backgroundImage: "url('"+this.props.site.image +"')"
        };
+       
+        let handleclick = ()=>{
+            this.props.handleClick(this.props.site)
+        };
        return(
-           <div className="site">
+           <div className="site" onClick={handleclick}>
                <div className="site-picture" style={style}>
                 
                </div>
