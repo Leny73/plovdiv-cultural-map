@@ -7,8 +7,8 @@ import Marker from './marker.js';
 import site from './site.js';
 
 let center = {
-  lat:42.151236,
-  lng:24.752182
+  lat:42.144606,
+  lng:24.738199
  }
 
 class App extends Component {
@@ -45,6 +45,12 @@ selectSite = (site)=>{
     })
  }
  
+ handleChange = (event) =>{
+  this.setState({
+    search: event.target.value,
+    sites: this.state.sites.filter((site) => new RegExp(this.state.search, 'i').exec(site.name))
+  });
+}
 
 
  
@@ -52,7 +58,13 @@ selectSite = (site)=>{
     return (
       <div className="App">
         <div className="main"> 
-          <div className="search"> 
+          <div className="search">
+            <input
+              type='text'
+              placeholder='Search..'
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
           </div> 
           <div className="sites">
             {this.state.sites.map((site) => {
